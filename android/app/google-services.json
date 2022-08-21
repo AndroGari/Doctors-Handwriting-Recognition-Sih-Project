@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "334271834125",
+    "project_id": "swasthyavardhak-suvarna",
+    "storage_bucket": "swasthyavardhak-suvarna.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334271834125:android:cbf3085fa84289d057cd44",
+        "android_client_info": {
+          "package_name": "com.gbsyam.swathyavardhak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334271834125-h82npc6voor2dnbt97uisgiu9g65gca3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gbsyam.swathyavardhak",
+            "certificate_hash": "20f4f48e7f12efde83a452aa341c185b64d75838"
+          }
+        },
+        {
+          "client_id": "334271834125-5embfigfmgouid772ug4emajf7ev95gf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGqZgf9sT9y0kPFVlaHe5W8tWiOkdFyC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334271834125-5embfigfmgouid772ug4emajf7ev95gf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
