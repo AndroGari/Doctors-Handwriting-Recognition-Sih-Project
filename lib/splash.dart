@@ -1,4 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:swathyavardhak/login.dart';
 
@@ -23,6 +24,21 @@ return AnimatedSplashScreen(
       child:   Image.asset(
         'images/swasthyas.png',),
     ),
-    nextScreen: Mylogin());
+    nextScreen: handleauthstate());
+}
+handleauthstate(){
+  return StreamBuilder(
+    stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (BuildContext context, snapshot){
+      if(snapshot.hasData){
+        return MyHomePage();
+
+      }
+      else{
+        return Mylogin();
+      }
+
+      }
+  );
 }
 }

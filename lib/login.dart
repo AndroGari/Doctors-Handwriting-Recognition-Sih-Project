@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:swathyavardhak/forgot.dart';
 import 'package:swathyavardhak/main.dart';
 import 'package:swathyavardhak/otp_login.dart';
@@ -19,6 +20,7 @@ class _MyloginState extends State<Mylogin> {
   bool toggle = true;
   bool wrongpass = false;
   final blue1 = const Color(0xff0d0f35);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,7 +39,7 @@ class _MyloginState extends State<Mylogin> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.33,
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.29,
                       ),
                     child:Text('Login',
                     style: TextStyle(
@@ -49,7 +51,7 @@ class _MyloginState extends State<Mylogin> {
               ],
             ),
             Container(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.45,left: 23,right: 23),
+              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.41,left: 23,right: 23),
               child: TextField(
                 controller: _emailTextController,
                 autocorrect: true,
@@ -68,7 +70,7 @@ class _MyloginState extends State<Mylogin> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.52,left: 23,right: 23),
+              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.48,left: 23,right: 23),
               margin: EdgeInsets.only(top: 20),
               child: TextField(
                 controller: _passwordTextController,
@@ -101,7 +103,7 @@ class _MyloginState extends State<Mylogin> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.62),
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.58),
                   margin: EdgeInsets.only(top: 20),
 
                   child: wrongpass? Text('Wrong useremail or password ! Try Otp login',
@@ -119,10 +121,7 @@ class _MyloginState extends State<Mylogin> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-
-
-
-                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.70),
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.63),
                     // padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.67)
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
@@ -160,7 +159,72 @@ class _MyloginState extends State<Mylogin> {
                 ),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.69),
+                  margin: EdgeInsets.only(top: 20),
 
+                  child: Text('OR',
+                    style: TextStyle(
+                      fontFamily: 'Redhat',
+                      fontSize: 18,
+
+                    ),)
+
+                ),
+              ],
+            ),
+            GestureDetector(
+              onTap: (){
+                signInWithGoogle(context);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  boxShadow: const [BoxShadow(
+                    color: Colors.black,
+                    spreadRadius: 0.7,
+                  ),],
+
+                  color: Colors.white
+                ),
+                alignment: Alignment.center,
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.77,left: 13,right: 13),
+                width: MediaQuery.of(context).size.width,
+                height: 55,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children:  [
+                    Container(
+                      height: 30.0,
+                      width: 30.0,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                              'images/google_logo.png'),
+                          fit: BoxFit.fill,
+                        ),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    Text('Sign In with Google    ',
+                      style: TextStyle(
+                        fontFamily: 'Convergence',
+                        // fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                      ),)
+                    ,
+
+
+
+                  ],
+                ),
+
+
+              ),
+            ),
             Container(
               padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.94,
                   ),
@@ -209,5 +273,34 @@ class _MyloginState extends State<Mylogin> {
         ),
       ),
     );
+  }
+  void showSnackBar(BuildContext context ,String value) {
+    Scaffold.of(context).showSnackBar(new SnackBar(
+        content: new Text(value)
+    ));
+  }
+  Future<void> signInWithGoogle(BuildContext context) async {
+
+    try {
+        final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+        final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+        if (googleAuth?.accessToken != null && googleAuth?.idToken != null) {
+          // Create a new credential
+          final credential = GoogleAuthProvider.credential(
+            accessToken: googleAuth?.accessToken,
+            idToken: googleAuth?.idToken,
+          );
+          UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+
+        }
+
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(context, e.message!); // Displaying the error message
+    }
   }
 }
