@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
+import { getAuth } from "firebase/auth";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
@@ -32,7 +33,9 @@ const Login = () => {
     setError("");
     try {
       await logIn(email, password);
+      const auth = getAuth();
       navigate("/home");
+      console.log(auth.currentUser.email);
     } catch (err) {
       setError(err.message);
     }
@@ -43,8 +46,10 @@ const Login = () => {
     try {
       await googleSignIn();
       navigate("/home");
+      
     } catch (error) {
       console.log(error.message);
+
     }
   };
 

@@ -4,6 +4,7 @@ import { getAuth, sendEmailVerification } from "firebase/auth";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
+import {addDoc, collection} from "firebase/firestore";
 
 import "./Login.css";
 import TagIcon from "@mui/icons-material/Tag";
@@ -14,14 +15,20 @@ import InputAdornment from "@mui/material/InputAdornment";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
-const Signup = () => {
+const Signup = (props) => {
   const [email, setEmail] = useState("");
+  const[name ,setName] =useState("");
+  const[phone,setPhone] =useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
   const [focused, setFocused] = useState(false);
   const [errorStudentType, setErrorStudentType] = useState(false);
+  const [errorStudentName, setErrorStudentName] = useState(false);
+  const [errorStudentPhone, setErrorStudentPhone] = useState(false);
   const [PasswordErrorType, setPasswordErrorType] = useState(false);
   const [emailError, setEmailError] = useState("");
+  const [nameError, setNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [eye, setEye] = useState(false);
   const [visibleIcon, setVisibleIcon] = useState(false);
@@ -30,6 +37,22 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
+
+    await addDoc(collection(props.db,"users"),
+    
+    {
+      email:email,
+      name:name,
+      phone:phone
+  
+    }).then(function(res){
+alert("Data added Successfully")
+    }).catch(function(err){
+      alert("Data can't be added");
+    })
+
     setError("");
     try {
       await signUp(email, password);
@@ -40,7 +63,7 @@ const Signup = () => {
           // ...
         });
        
-      
+      console.log(auth.currentUser.email);
          if(auth.currentUser.emailVerified==="true") {
         navigate("/home")
          }
@@ -90,10 +113,52 @@ const Signup = () => {
     return error;
   };
 
+  const validateName = (value)=>{
+    let error;
+    let regex = new RegExp("^[A-Za-z ]{3,29}$");
+    if(!value)
+    {
+      error ="name is required";
+      setErrorStudentName(true);
+    }
+    else if(!regex.test(value)){
+      error ="name should be of minimum 3 characters";
+      setErrorStudentName(true);
+    }
+    else{
+      setErrorStudentName(true);
+    }
+    return error;
+  }
+const validatePhone =(value)=>{
+  let error;
+  const regex ="^[0-9]{10}$";
+  if(!value)
+  {
+    error ="Phone Number is required!!!";
+    setErrorStudentPhone(true);
+  }
+  else if (!regex.test(value)){
+    error ="Phone number should include 10 digits";
+    setErrorStudentPhone(true);
+  }
+  else {
+    setErrorStudentPhone(true);
+  }
+  return error;
+}
 
   const studentFocus = (e) => {
     setFocused(true);
     setEmailError(validateEmail(email));
+  };
+  const studentFocusPhone = (e) => {
+    setFocused(true);
+    setPhoneError(validatePhone(phone));
+  };
+  const studentFocusName = (e) => {
+    setFocused(true);
+    setNameError(validateName(name));
   };
   const passwordFocus = (e) => {
     setFocused(true);
@@ -112,6 +177,36 @@ const Signup = () => {
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
           
+
+
+        <div className="icon_container">
+          <div className="icon">
+            <p className="bars"></p>
+            <TagIcon />
+          </div>
+          <TextField
+           autoComplete="off"
+            label="name"
+            variant="outlined"
+            size="small"
+            className="input_field"
+            type="text"
+            name="studentName"
+            error={errorStudentName ? true : false}
+            onBlur={studentFocusName}
+            focused={focused.tostring}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            inputProps={{ style: { fontSize: 15 } }} // font size of input text
+            InputLabelProps={{ style: { fontSize: 15 } }} // font size of input label
+          />
+        </div>
+        <div className="errormsg_container">
+          <div className="errormsg">
+            <span>{nameError}</span>
+          </div>
+        </div>
+
 
         <div className="icon_container">
           <div className="icon">
@@ -143,6 +238,36 @@ const Signup = () => {
 
 
 
+
+
+
+        <div className="icon_container">
+          <div className="icon">
+            <p className="bars"></p>
+            <TagIcon />
+          </div>
+          <TextField
+            autoComplete="off"
+            label="mobileNo"
+            variant="outlined"
+            size="small"
+            className="input_field"
+            type="text"
+            name="studentName"
+            error={errorStudentPhone ? true : false}
+            onBlur={studentFocusPhone}
+            focused={focused.tostring}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            inputProps={{ style: { fontSize: 15 } }} // font size of input text
+            InputLabelProps={{ style: { fontSize: 15 } }} // font size of input label
+          />
+        </div>
+        <div className="errormsg_container">
+          <div className="errormsg">
+            <span>{phoneError}</span>
+          </div>
+        </div>
 
 
 
