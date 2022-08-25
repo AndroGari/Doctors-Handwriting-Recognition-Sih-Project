@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:swathyavardhak/login.dart';
 import 'package:swathyavardhak/main.dart';
-
-class Settings extends StatefulWidget {
-  const Settings({Key? key}) : super(key: key);
+class SettingSwas extends StatefulWidget {
+  const SettingSwas({Key? key}) : super(key: key);
 
   @override
-  State<Settings> createState() => _SettingsState();
+  State<SettingSwas> createState() => _SettingSwasState();
 }
 
-class _SettingsState extends State<Settings> {
+class _SettingSwasState extends State<SettingSwas> {
   @override
   int num=0;
   final blue1 = const Color(0xff0d0f35);
@@ -48,7 +47,7 @@ class _SettingsState extends State<Settings> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) {
-                    return Settings();
+                    return SettingSwas();
                   }),
                 );
               },

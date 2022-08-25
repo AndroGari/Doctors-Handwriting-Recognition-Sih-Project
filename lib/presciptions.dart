@@ -1,8 +1,12 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swathyavardhak/register.dart';
+
+import 'main.dart';
 class Prescriptions extends StatefulWidget {
   const Prescriptions({Key? key}) : super(key: key);
 
@@ -12,6 +16,8 @@ class Prescriptions extends StatefulWidget {
 
 class _PrescriptionsState extends State<Prescriptions> {
   String s="bhagrawal24@gmail.com";
+  final user = FirebaseAuth.instance.currentUser!;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,10 +40,11 @@ class _PrescriptionsState extends State<Prescriptions> {
                 Container(
                     padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.15,
                     ),
-                    child: const Text('Verify Email',
+                    child: Text( user.email!
+                      ,
                       style: TextStyle(
                         // decoration: TextDecoration.underline,
-                        fontSize: 37,
+                        fontSize: 17,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Convergence',
                       ),)
@@ -71,47 +78,7 @@ class _PrescriptionsState extends State<Prescriptions> {
 
                 ),)
             ),
-            // SizedBox(
-            // //   height: MediaQuery.of(context).size.height*0.67,
-            // // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
 
-                  //
-
-                    margin : EdgeInsets.only(top: MediaQuery.of(context).size.height*0.67),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-
-                    ),
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height*0.07,
-                      width: MediaQuery.of(context).size.width*0.65,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Color(0xff0d0f35),
-                        ),
-                        onPressed: (){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) {
-                              return Pageregister();
-                            }
-                            ),
-                          );
-
-                        },
-                        child: Text('Retry/cancel',
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),),
-                      ),
-                    )
-                ),
-              ],
-            )
 
           ],
         ),
@@ -120,4 +87,88 @@ class _PrescriptionsState extends State<Prescriptions> {
   }
 }
 
+class Desgining extends StatelessWidget {
+  const Desgining({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+
+        child: Container(
+          height: 90,
+          width: 90,
+          child: CircularProgressIndicator(
+            strokeWidth: 8,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Lab_Report extends StatefulWidget {
+  const Lab_Report({Key? key}) : super(key: key);
+
+  @override
+  State<Lab_Report> createState() => _Lab_ReportState();
+}
+
+class _Lab_ReportState extends State<Lab_Report> {
+  final blue1 = const Color(0xff0d0f35);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+
+      body: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.12 , left: 20,right: 20
+            ),
+            child: Row(
+
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: Text("Lab Reports"
+                    ,style: TextStyle(
+                      fontFamily: 'Convergence',
+                      fontWeight: FontWeight.w600,
+
+                      fontSize: 23,
+                    ),),
+                ),
+                Container(
+                    height: 45,
+                    width: 45,
+
+                    // padding: EdgeInsets.all(20),
+                    // margin: EdgeInsets.all(8),
+                    padding: EdgeInsets.all(4),
+                    decoration: const BoxDecoration(
+                      boxShadow: const [BoxShadow(
+                        color: Colors.white,
+                        spreadRadius: 1.5,
+                      ),],
+                      shape: BoxShape.circle,
+                      color: Color.fromRGBO(0, 178, 255, 100),
+                      // color: Color.fromRGBO(132, 29, 210, 72),
+                    ),
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage('images/avata.png'),
+                    )
+                ),
+              ],
+            ),
+          ),
+
+
+
+        ],
+      ),
+
+    );
+  }
+}
 

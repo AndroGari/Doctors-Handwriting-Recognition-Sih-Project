@@ -298,7 +298,8 @@ class _MyloginState extends State<Mylogin> {
 
 
         }
-
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) => MyHomePage()));
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!); // Displaying the error message
     }

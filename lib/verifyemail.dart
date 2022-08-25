@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:swathyavardhak/main.dart';
@@ -26,6 +27,8 @@ class _VerifyEmailState extends State<VerifyEmail> {
     
     super.initState();
   }
+  final user2 = FirebaseAuth.instance.currentUser!;
+
   @override
   void dispose() {
     timer.cancel();
@@ -83,7 +86,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
               Container(
 
                   padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.52,left: 35,right: 35),
-                  child: Text('An Email has been sent to ' + "\n" + '\nKindly check the Spam mail.'
+                  child: Text('An Email has been sent to\n' + user2.email! + '\nKindly check the Spam mail.'
 
                     ,
                     textAlign: TextAlign.center,

@@ -89,6 +89,7 @@ class _PageregisterState extends State<Pageregister> {
                     child: TextField(
                       controller: _username,
                       // maxLines: 2,
+                      maxLength: 20,
                       decoration: InputDecoration(
                         hintText: 'Username',
                       ),
@@ -291,15 +292,12 @@ class _PageregisterState extends State<Pageregister> {
 
   Future<void> addUser() async {
 
-    String email_string,useRname;
-    email_string= _useremail.text;
-    final split = email_string.split('@') ;
-    useRname = split[0];
-    final user = FirebaseFirestore.instance.collection('users').doc(useRname);
+
+    final user = FirebaseFirestore.instance.collection('users').doc(_useremail.text);
     final json ={
       'Name': _username.text,
       'Email': _useremail.text,
-      'phone number': '+91'+_phonenumber.text
+      'phone number': '+91'+_phonenumber.text,
     };
     await user.set(json)
         .then((value) => print("User Added"))
