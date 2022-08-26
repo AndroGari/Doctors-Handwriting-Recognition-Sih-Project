@@ -10,7 +10,9 @@ class SettingSwas extends StatefulWidget {
 }
 
 class _SettingSwasState extends State<SettingSwas> {
+  TextEditingController querycontroller = new TextEditingController();
   @override
+
   int num=0;
   final blue1 = const Color(0xff0d0f35);
   bool j=true;
@@ -126,9 +128,43 @@ class _SettingSwasState extends State<SettingSwas> {
       ),
       body: Column(
         children: [
+          Container(
+            margin: EdgeInsets.only(left: 20,top: 30),
+            child: Text('Ask your Queries',
+              style: TextStyle(
+                fontSize: 25,
+                // fontFamily: 'Convergence',
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 15,left: 20,right: 20),
+            child: TextField(
+              maxLines: 4,
+              controller: querycontroller,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                labelText: 'Query',
+                labelStyle: TextStyle(
+                    fontStyle: FontStyle.italic, fontSize: 30),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
           Center(
 
-          ),
+            child: Text('Note - Your Query will be answered within\n            24 hours of your request',
+              style: TextStyle(
+                fontSize: 15,
+                // fontFamily: 'Convergence',
+              ),
+            ),
+          )
+
         ],
       ),
 

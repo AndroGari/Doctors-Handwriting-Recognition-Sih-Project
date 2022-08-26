@@ -113,24 +113,13 @@ bool p4 =false;
                 ),
               ),
               if(p1==true)
-              Container(
-                  margin: EdgeInsets.only(top: 30 , left: 2 , right: 2),
+                Container(
+                  margin: EdgeInsets.only(top: 30),
                   height: 400,
                   width: 400,
-                  // color: Colors.grey,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                      )
-                  ),
-                  child: Center(
-                    child: Text("Image Area",
-                      style: TextStyle(
-                        fontFamily: 'Convergence',
-                        fontSize: 30,
-                      ),),
-                  )
-              ),
+                  color: Colors.transparent,
+                  child: Image.asset('images/img.png'),
+                ),
               Container(
                 margin: EdgeInsets.only(top: 20,left: 10,right: 10),
                 height: 60,
@@ -169,24 +158,13 @@ bool p4 =false;
                 ),
               ),
               if(p2==true)
-              Container(
-                  margin: EdgeInsets.only(top: 30 , left: 2 , right: 2),
+                Container(
+                  margin: EdgeInsets.only(top: 30),
                   height: 400,
                   width: 400,
-                  // color: Colors.grey,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                      )
-                  ),
-                  child: Center(
-                    child: Text("Image Area",
-                      style: TextStyle(
-                        fontFamily: 'Convergence',
-                        fontSize: 30,
-                      ),),
-                  )
-              ),
+                  color: Colors.transparent,
+                  child: Image.asset('images/1st.jpg'),
+                ),
               Container(
                 margin: EdgeInsets.only(top: 20,left: 10,right: 10),
                 height: 60,
@@ -225,24 +203,13 @@ bool p4 =false;
                 ),
               ),
               if(p3==true)
-              Container(
-                  margin: EdgeInsets.only(top: 30 , left: 2 , right: 2),
+                Container(
+                  margin: EdgeInsets.only(top: 30),
                   height: 400,
                   width: 400,
-                  // color: Colors.grey,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                      )
-                  ),
-                  child: Center(
-                    child: Text("Image Area",
-                      style: TextStyle(
-                        fontFamily: 'Convergence',
-                        fontSize: 30,
-                      ),),
-                  )
-              ),
+                  color: Colors.transparent,
+                  child: Image.asset('images/1st.jpg'),
+                ),
               Container(
                 margin: EdgeInsets.only(top: 20,left: 10,right: 10),
                 height: 60,
@@ -282,23 +249,12 @@ bool p4 =false;
               ),
               if(p4==true)
                 Container(
-                    margin: EdgeInsets.only(top: 30 , left: 2 , right: 2),
-                    height: 400,
-                    width: 400,
-                    // color: Colors.grey,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black,
-                        )
-                    ),
-                    child: Center(
-                      child: Text("Image Area",
-                        style: TextStyle(
-                          fontFamily: 'Convergence',
-                          fontSize: 30,
-                        ),),
-                    )
-                ),
+                  margin: EdgeInsets.only(top: 30),
+                  height: 400,
+                  width: 400,
+                  color: Colors.transparent,
+                  child: Image.asset('images/1st.jpg'),
+                )
             ],
           ),
         ],

@@ -19,7 +19,8 @@ class _MyloginState extends State<Mylogin> {
   TextEditingController _passwordTextController = TextEditingController();
   bool toggle = true;
   bool wrongpass = false;
-  final blue1 = const Color(0xff0d0f35);
+  bool ischecked = false;
+  final blue1 = const Color(0xff05072f);
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +40,11 @@ class _MyloginState extends State<Mylogin> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                    padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.15,
+                    padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.13,
                     ),
                     child:Text('SUVARNA',
                       style: TextStyle(
-                        color: blue1,
+                        // color: Color(0xff2257bd),
                         fontSize: 54,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Convergence',
@@ -58,12 +59,12 @@ class _MyloginState extends State<Mylogin> {
 
 
                 Container(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.29,
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.27,
                       ),
                     child:Text('Login',
                     style: TextStyle(
 
-                      fontSize: 40,
+                      fontSize: 42,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Convergence',
                     ),)
@@ -71,7 +72,7 @@ class _MyloginState extends State<Mylogin> {
               ],
             ),
             Container(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.41,left: 23,right: 23),
+              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.39,left: 23,right: 23),
               child: TextField(
                 controller: _emailTextController,
                 autocorrect: true,
@@ -90,7 +91,7 @@ class _MyloginState extends State<Mylogin> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.48,left: 23,right: 23),
+              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.46,left: 23,right: 23),
               margin: EdgeInsets.only(top: 20),
               child: TextField(
                 controller: _passwordTextController,
@@ -119,6 +120,28 @@ class _MyloginState extends State<Mylogin> {
                 ),
               ),
             ),
+        Container(
+          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.55,left: 23,right: 23),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Text('Accept all terms and conditions',
+              style: TextStyle(
+                fontSize: 16,
+              ),),
+          Checkbox(
+            checkColor: Colors.white,
+            // fillColor: MaterialStateProperty.resolveWith(Colors.black),
+            value: ischecked,
+            onChanged: (bool? value) {
+              setState(() {
+                ischecked = value!;
+              });
+            },
+          ),
+            ],
+          ),
+        ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -126,7 +149,9 @@ class _MyloginState extends State<Mylogin> {
                   padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.58),
                   margin: EdgeInsets.only(top: 20),
 
-                  child: wrongpass? Text('Wrong useremail or password ! Try Otp login',
+                  child:
+                  wrongpass?
+                  Text('Wrong useremail or password ! Try Otp login',
                     style: TextStyle(
                       fontFamily: 'Redhat',
                       fontSize: 13,
@@ -155,6 +180,7 @@ class _MyloginState extends State<Mylogin> {
                           primary: blue1,
                         ),
                         onPressed: (){
+                          if(ischecked==true)
                           FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailTextController.text,
                               password: _passwordTextController.text).then((value) {
                             print("Signed in");
@@ -198,6 +224,7 @@ class _MyloginState extends State<Mylogin> {
             ),
             GestureDetector(
               onTap: (){
+                if( ischecked==true)
                 signInWithGoogle(context);
               },
               child: Container(
