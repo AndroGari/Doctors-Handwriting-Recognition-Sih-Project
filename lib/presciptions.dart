@@ -1,9 +1,15 @@
+import 'dart:io';
 import 'dart:ui';
+import 'package:path/path.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:file_picker/file_picker.dart';
+
 import 'package:flutter/material.dart';
+import 'package:swathyavardhak/Firebase_api.dart';
 import 'package:swathyavardhak/register.dart';
 
 import 'main.dart';
@@ -15,74 +21,289 @@ class Prescriptions extends StatefulWidget {
 }
 
 class _PrescriptionsState extends State<Prescriptions> {
-  String s="bhagrawal24@gmail.com";
-  final user = FirebaseAuth.instance.currentUser!;
+bool p1=false;
+bool p2=false;
+bool p3= false;
+bool p4 =false;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          // image: AssetImage('images/LoginNEW .png'),
-          image: AssetImage('images/Loginnew2.png'),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.transparent,
-        body: Stack(
+    return Scaffold(
 
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                    padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.15,
+
+      body: ListView(
+        children: [
+          Column(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.12 , left: 20,right: 20
+                ),
+                child: Row(
+
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Text("  Prescriptions"
+                        ,style: TextStyle(
+                          fontFamily: 'Convergence',
+                          fontWeight: FontWeight.w600,
+
+                          fontSize: 32,
+                        ),),
                     ),
-                    child: Text( user.email!
-                      ,
+                    Container(
+                        height: 45,
+                        width: 45,
+
+                        // padding: EdgeInsets.all(20),
+                        // margin: EdgeInsets.all(8),
+                        padding: EdgeInsets.all(4),
+                        decoration: const BoxDecoration(
+                          boxShadow: const [BoxShadow(
+                            color: Colors.white,
+                            spreadRadius: 1.5,
+                          ),],
+                          shape: BoxShape.circle,
+                          color: Color.fromRGBO(0, 178, 255, 100),
+                          // color: Color.fromRGBO(132, 29, 210, 72),
+                        ),
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage('images/avata.png'),
+                        )
+                    ),
+
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 30,left: 10,right: 10),
+                height: 60,
+
+                decoration: BoxDecoration(
+                border: Border.all(
+    color: Colors.black,
+    ),
+                  borderRadius : BorderRadius.all(Radius.circular(20)),
+                  color: Color.fromRGBO(196, 196, 196, 1),
+
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text('Prescription 1',
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontFamily: 'Convergence'
+                    ),),
+                    Container(
+                      child: IconButton(
+                        onPressed: (){
+                          setState(() {
+                            p1=!p1;
+                            p2=false;
+                            p3=false;
+                            p4=false;
+                          });
+                        },
+                        icon: Icon(Icons.arrow_drop_down_circle_outlined,
+                        size: 35,),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              if(p1==true)
+              Container(
+                  margin: EdgeInsets.only(top: 30 , left: 2 , right: 2),
+                  height: 400,
+                  width: 400,
+                  // color: Colors.grey,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black,
+                      )
+                  ),
+                  child: Center(
+                    child: Text("Image Area",
                       style: TextStyle(
-                        // decoration: TextDecoration.underline,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
                         fontFamily: 'Convergence',
-                      ),)
+                        fontSize: 30,
+                      ),),
+                  )
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 20,left: 10,right: 10),
+                height: 60,
+
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                  ),
+                  borderRadius : BorderRadius.all(Radius.circular(20)),
+                  color: Color.fromRGBO(196, 196, 196, 1),
+
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text('Prescription 2',
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontFamily: 'Convergence'
+                      ),),
+                    Container(
+                      child: IconButton(
+                        onPressed: (){
+                          setState(() {
+                            p1=false;
+                            p2=!p2;
+                            p3=false;
+                            p4=false;
+                          });
+                        },
+                        icon: Icon(Icons.arrow_drop_down_circle_outlined,
+                          size: 35,),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              if(p2==true)
+              Container(
+                  margin: EdgeInsets.only(top: 30 , left: 2 , right: 2),
+                  height: 400,
+                  width: 400,
+                  // color: Colors.grey,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black,
+                      )
+                  ),
+                  child: Center(
+                    child: Text("Image Area",
+                      style: TextStyle(
+                        fontFamily: 'Convergence',
+                        fontSize: 30,
+                      ),),
+                  )
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 20,left: 10,right: 10),
+                height: 60,
+
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                  ),
+                  borderRadius : BorderRadius.all(Radius.circular(20)),
+                  color: Color.fromRGBO(196, 196, 196, 1),
+
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text('Prescription 3',
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontFamily: 'Convergence'
+                      ),),
+                    Container(
+                      child: IconButton(
+                        onPressed: (){
+                          setState(() {
+                            p1=false;
+                            p2=false;
+                            p3=!p3;
+                            p4=false;
+                          });
+                        },
+                        icon: Icon(Icons.arrow_drop_down_circle_outlined,
+                          size: 35,),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              if(p3==true)
+              Container(
+                  margin: EdgeInsets.only(top: 30 , left: 2 , right: 2),
+                  height: 400,
+                  width: 400,
+                  // color: Colors.grey,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black,
+                      )
+                  ),
+                  child: Center(
+                    child: Text("Image Area",
+                      style: TextStyle(
+                        fontFamily: 'Convergence',
+                        fontSize: 30,
+                      ),),
+                  )
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 20,left: 10,right: 10),
+                height: 60,
+
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                  ),
+                  borderRadius : BorderRadius.all(Radius.circular(20)),
+                  color: Color.fromRGBO(196, 196, 196, 1),
+
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text('Prescription 4',
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontFamily: 'Convergence'
+                      ),),
+                    Container(
+                      child: IconButton(
+                        onPressed: (){
+                          setState(() {
+                            p1=false;
+                            p2=false;
+                            p3=false;
+                            p4=!p4;
+                          });
+                        },
+                        icon: Icon(Icons.arrow_drop_down_circle_outlined,
+                          size: 35,),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              if(p4==true)
                 Container(
-                    padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.27),
-                    // height: 25,
-                    // width: 25,
-                    child: Image.asset("images/verify.png",
-                      height: 140,
-                      width: 125,)
+                    margin: EdgeInsets.only(top: 30 , left: 2 , right: 2),
+                    height: 400,
+                    width: 400,
+                    // color: Colors.grey,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                        )
+                    ),
+                    child: Center(
+                      child: Text("Image Area",
+                        style: TextStyle(
+                          fontFamily: 'Convergence',
+                          fontSize: 30,
+                        ),),
+                    )
                 ),
-              ],
-            ),
-            Container(
-
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.52,left: 35,right: 35),
-                child: Text('An Email has been sent to ' + s + '\nKindly check the Spam mail.'
-
-                ,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-
-                  fontSize: 22,
-                  fontFamily: 'Convergence',
-
-                ),)
-            ),
-
-
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
+
     );
   }
 }
@@ -116,11 +337,44 @@ class Lab_Report extends StatefulWidget {
 
 class _Lab_ReportState extends State<Lab_Report> {
   final blue1 = const Color(0xff0d0f35);
+File? file;
+
+  Future SelectFileFromStorage() async {
+    // FilePickerResult? result = await FilePicker.platform.pickFiles();
+    // if (result != null)
+    // setState(() {
+    //   pickedFile = result.files.first;
+    // });
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+    if(result==null) return;
+      final path = result.files.single.path!;
+      setState(() {
+        file = File(path);
+      });
+
+
+  }
+  Future Upload() async{
+    if(file==null) return;
+    final filename = basename(file!.path);
+    final destination = 'files/$filename';
+    FirebaseApi.uploadFile(destination, file!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
-
+      floatingActionButton: Container(
+        margin: EdgeInsets.only(right: 20,bottom: 20),
+        height: 70,
+        width: 70,
+        child: FloatingActionButton(
+          onPressed: Upload,
+          child: Icon(Icons.cloud_upload,
+          size: 35,),
+        ),
+      ),
       body: Column(
         children: [
           Container(
@@ -131,7 +385,7 @@ class _Lab_ReportState extends State<Lab_Report> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  child: Text("Lab Reports"
+                  child: Text("  View section"
                     ,style: TextStyle(
                       fontFamily: 'Convergence',
                       fontWeight: FontWeight.w600,
@@ -160,6 +414,58 @@ class _Lab_ReportState extends State<Lab_Report> {
                     )
                 ),
               ],
+            ),
+          ),
+          file!=null?
+             Container(
+               margin: EdgeInsets.only(top: 30),
+              height: 400,
+              width: 400,
+              color: Colors.transparent,
+              child: Image.file(
+                File(file!.path),
+                // width: double.infinity,
+                // fit: BoxFit.cover,
+              ),
+            ) :
+          Container(
+            margin: EdgeInsets.only(top: 30 , left: 2 , right: 2),
+            height: 400,
+            width: 400,
+            // color: Colors.grey,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.black,
+                )
+              ),
+            child: Center(
+              child: Text("Image Area",
+              style: TextStyle(
+                fontFamily: 'Convergence',
+                fontSize: 30,
+              ),),
+            )
+          ),
+
+            Container(),
+          GestureDetector(
+            onTap: SelectFileFromStorage,
+            child: Container(
+              margin: EdgeInsets.only(top: 30),
+              width: MediaQuery.of(context).size.width*0.8,
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: Colors.blue,
+              ),
+              child: Center(
+                child: Text('Select File',
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.black,
+                  fontFamily: 'Convergence'
+                ),),
+              ),
             ),
           ),
 

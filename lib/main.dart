@@ -3,7 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:swathyavardhak/Firebase_api.dart';
 import 'package:swathyavardhak/presciptions.dart';
 import 'package:swathyavardhak/setting.dart';
 import 'package:swathyavardhak/splash.dart';
@@ -50,10 +52,15 @@ class _MyHomePageState extends State<MyHomePage> {
     final image = await imagePicker.pickImage(
         source: ImageSource.camera);
     setState(() {
-
       _image = File(image!.path);
     });
+    File file = File(_image.path);
+    final filename = basename(file!.path!);
+    final destination = 'files/$filename';
+    FirebaseApi.uploadFile(destination, file!);
+
   }
+
   @override
 
   Widget build(BuildContext context) {
@@ -102,28 +109,54 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 iconSize: 35,
               ),
-              GestureDetector(
-                onTap:   getImage,
-                child: Container(
-                  height: 60,
-                  width: 60,
+              Container(
+                height: 60,
+                width: 60,
 
-                  // padding: EdgeInsets.all(20),
-                  margin: EdgeInsets.all(8),
-                  decoration: const BoxDecoration(
-                    boxShadow: const [BoxShadow(
-                      color: Colors.white,
-                      spreadRadius: 1.5,
-                    ),],
-                    shape: BoxShape.circle,
-                    color: Color.fromRGBO(0, 178, 255, 100),
-                    // color: Color.fromRGBO(132, 29, 210, 72),
-                  ),
-                  child:
-                  Icon(
-                    Icons.camera_alt,
-                    size: 35,
-                    color: Colors.black,
+                // padding: EdgeInsets.all(20),
+                margin: EdgeInsets.all(8),
+                decoration: const BoxDecoration(
+                  boxShadow: const [BoxShadow(
+                    color: Colors.white,
+                    spreadRadius: 1.5,
+                  ),],
+                  shape: BoxShape.circle,
+                  color: Color.fromRGBO(0, 178, 255, 100),
+                  // color: Color.fromRGBO(132, 29, 210, 72),
+                ),
+                child:
+                Container(
+                  // margin: EdgeInsets.only(bottom: 20),
+                  child: PopupMenuButton(
+                    color: Colors.grey,
+                    offset: Offset(27, 0),
+                    // elevation: 200,
+                    child: Icon(Icons.camera_alt,
+                    size: 35,),
+
+                    itemBuilder: (context) => [
+
+                      PopupMenuItem(
+                        child: GestureDetector(
+                            onTap: getImage,
+                            child: Center(child: Text("Camera"))),
+                      ),
+                      // PopupMenuItem(
+                      //   child: Text("Flutter.io"),
+                      // ),
+                      PopupMenuItem(
+                        child: GestureDetector(
+                            onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return Lab_Report();
+                                }),
+                              );
+                            },
+                            child: Center(child: Text("Gallery"))),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -293,12 +326,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             GestureDetector(
               onTap: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return Lab_Report();
-                  }),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) {
+                //     return Lab_Report();
+                //   }),
+                // );
               },
               child: Container(
                 decoration: BoxDecoration(

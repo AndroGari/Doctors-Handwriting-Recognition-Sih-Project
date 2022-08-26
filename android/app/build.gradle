@@ -45,6 +45,7 @@ android {
         applicationId "com.gbsyam.swathyavardhak"
         minSdkVersion localProperties.getProperty('flutter.minSdkVersion').toInteger()
         targetSdkVersion localProperties.getProperty('flutter.targetSdkVersion').toInteger()
+
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -65,4 +66,5 @@ flutter {
 dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.3.0')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
 }

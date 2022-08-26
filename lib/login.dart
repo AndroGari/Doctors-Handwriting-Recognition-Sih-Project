@@ -39,10 +39,30 @@ class _MyloginState extends State<Mylogin> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
+                    padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.15,
+                    ),
+                    child:Text('SUVARNA',
+                      style: TextStyle(
+                        color: blue1,
+                        fontSize: 54,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Convergence',
+                      ),)
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+
+
+
+                Container(
                   padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.29,
                       ),
                     child:Text('Login',
                     style: TextStyle(
+
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Convergence',

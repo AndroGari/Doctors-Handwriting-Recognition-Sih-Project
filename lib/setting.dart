@@ -17,7 +17,9 @@ class _SettingSwasState extends State<SettingSwas> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
+        notchMargin: 42,
+        elevation: 85,
+        color: blue1,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -25,22 +27,39 @@ class _SettingSwasState extends State<SettingSwas> {
             IconButton(
               onPressed: () {
                 Navigator.push(
+
                   context,
                   MaterialPageRoute(builder: (context) {
                     return MyHomePage();
                   }),
                 );
               },
-              icon: Icon(Icons.home_outlined),
+              icon: Icon(Icons.home_outlined,
+                color: Colors.white,
+              ),
               iconSize: 35,
             ),
-            IconButton(
-              onPressed: () {
+            Container(
+              height: 60,
+              width: 60,
 
-              },
-              icon: Icon(Icons.search),
-              iconSize: 30,
-              color: Colors.black,
+              // padding: EdgeInsets.all(20),
+              margin: EdgeInsets.all(8),
+              decoration: const BoxDecoration(
+                boxShadow: const [BoxShadow(
+                  color: Colors.white,
+                  spreadRadius: 1.5,
+                ),],
+                shape: BoxShape.circle,
+                color: Color.fromRGBO(0, 178, 255, 100),
+                // color: Color.fromRGBO(132, 29, 210, 72),
+              ),
+              child:
+              Icon(
+                Icons.camera_alt,
+                size: 35,
+                color: Colors.black,
+              ),
             ),
             IconButton(
               onPressed: () {
@@ -51,7 +70,8 @@ class _SettingSwasState extends State<SettingSwas> {
                   }),
                 );
               },
-              icon: Icon(Icons.settings),
+              icon: Icon(Icons.settings,
+                color: Colors.white,),
               iconSize: 30,
             ),
 
@@ -60,32 +80,26 @@ class _SettingSwasState extends State<SettingSwas> {
         ),
       ),
       appBar: AppBar(
-        centerTitle: true,
 
-        backgroundColor: Colors.blueGrey,
-        title: Text('Demo'),
-      ),
-      body: Column(
-        children: [
-          Center(
-            child: Container(
+        automaticallyImplyLeading: false,
+        // centerTitle: true,
+        actions: [
+          Container(
+            padding: EdgeInsets.only(right: 12),
+            child: PopupMenuButton(
 
-
-
-                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.45),
-                // padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.67)
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-
+              // child: Icon(Icons.list,
+              // size: 30,),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: Text("FAQ'S"),
                 ),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height*0.07,
-                  width: MediaQuery.of(context).size.width*0.65,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: blue1,
-                    ),
-                    onPressed: (){
+                // PopupMenuItem(
+                //   child: Text("Flutter.io"),
+                // ),
+                PopupMenuItem(
+                  child: GestureDetector(
+                    onTap: (){
                       FirebaseAuth.instance.signOut().then((value) {
                         print("Signed out");
                         Navigator.push(context, MaterialPageRoute(
@@ -93,32 +107,31 @@ class _SettingSwasState extends State<SettingSwas> {
                       }).onError((error, stackTrace) {
                         print("Error ${error.toString()}");
                       });
-
-
                     },
-                    child: const Text('Sign out',style: TextStyle(
-                      fontFamily: 'Redhat',
-                      fontSize: 22,
-                    ),),
-                  ),
-                )
+                      child: Text("Log out")),
+                ),
+              ],
             ),
+          )
+
+        ],
+        backgroundColor: blue1,
+        title: Text('  Settings',
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 25,
+          fontFamily: 'Convergence'
+        ),),
+      ),
+      body: Column(
+        children: [
+          Center(
+
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
 
-        onPressed:(){
-          setState(() {
-            num<10? num++:num=0;
-            j=!j;
-          });
-        },
-        backgroundColor: j? Colors.green: Colors.blue,
-
-        child: Icon( !j? Icons.add_a_photo : Icons.access_time_sharp),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
     );
   }
 }
