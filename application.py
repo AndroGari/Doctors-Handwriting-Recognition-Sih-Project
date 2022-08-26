@@ -11,7 +11,9 @@ import shutil
 shutil.rmtree("./prediction")
 os.mkdir('./prediction')
 path='./prediction'
-@app.route("/", methods=["get"])
+@app.route('/', methods=['GET'])
+def home():
+  return render_template('index.html')
 
 @app.route("/predict", methods=["POST"])
 def index():
